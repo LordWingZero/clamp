@@ -1,7 +1,12 @@
-module.exports = clamp
+module.exports = clamp;
 
 function clamp(value, min, max) {
-  return min < max
-    ? (value < min ? min : value > max ? max : value)
-    : (value < max ? max : value > min ? min : value)
+  if (min > max) {
+    return 0;
+  }
+  return Math.max(min, Math.min(max, value));
+}
+
+clamp.prototype = function saturate(v) {
+  return this.clamp(v, 0.0, 1.0);
 }
